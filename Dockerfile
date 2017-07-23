@@ -1,0 +1,1 @@
+FROM kevinjcoleman/docker-rails
