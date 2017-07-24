@@ -1,1 +1,5 @@
 <h1>Homepage</h1>
+
+<% @teams.find_each do |team| %>
+  <li><%= team.name %></li>
+<% end %>

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def home
-
-  end 
+    @teams = NflTeam.all
+  end
 end
