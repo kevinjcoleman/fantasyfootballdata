@@ -17,7 +17,7 @@ set :pty, true
 set :linked_files, %w{config/application.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 set :bundle_binstubs, nil
 
 # Default value for keep_releases is 5
