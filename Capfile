@@ -22,6 +22,7 @@ require 'capistrano/rails/migrations' # for running migrations
 require 'capistrano/puma'
 install_plugin Capistrano::Puma
 require 'capistrano/puma/nginx'
+require 'capistrano/console'
 
 
 # Include tasks from other gems included in your Gemfile
