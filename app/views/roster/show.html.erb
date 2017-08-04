@@ -1,0 +1,8 @@
+<h1><%= @team.name %></h1>
+
+<table>
+  <%= render 'players/header' %>
+  <%= @team.players.find_each do |player| %>
+    <%= render player %>
+  <% end %>
+</table>

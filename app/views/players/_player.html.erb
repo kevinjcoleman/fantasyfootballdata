@@ -1,0 +1,5 @@
+<tr>
+  <% RosterParser::ROW_HEADERS.values.each do |attr| %>
+    <td><%= player.send(attr) %></td>
+  <% end %>
+</tr>

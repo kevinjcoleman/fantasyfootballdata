@@ -39,3 +39,6 @@
 - `docker-compose port ${service} ${port}` - list port mappings for service, for this to work ports in the compose yaml file must be automatically assigned, i.e. "8080"
 - `docker-compose restart ${service}` - restart a service
 - `docker-compose run ${service} ${command}` - execute a command in a new container of a service
+
+
+Use `lvh.me` locally.

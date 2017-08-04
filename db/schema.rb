@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720023945) do
+ActiveRecord::Schema.define(version: 20170804030759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,32 @@ ActiveRecord::Schema.define(version: 20170720023945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "espn_short_slug"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.integer "number"
+    t.string "name"
+    t.string "position"
+    t.integer "age"
+    t.string "espn_id"
+    t.string "height"
+    t.integer "weight"
+    t.integer "experience"
+    t.string "college"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "team_id"
+    t.string "espn_slug"
+    t.index ["team_id"], name: "index_players_on_team_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "refresh_token"
+    t.string "token"
+    t.string "name"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

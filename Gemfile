@@ -36,7 +36,8 @@ gem 'nokogiri'
 gem 'pry-rails'
 gem 'httparty'
 gem 'figaro'
-
+gem 'omniauth-yahoo-oauth2'
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
