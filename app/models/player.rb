@@ -13,7 +13,7 @@ class Player < ApplicationRecord
 
   def backfill_stats
     # RB Stats http://www.espn.com/nfl/player/splits/_/id/3051392/ezekiel-elliott
-    # QB Stats http://www.espn.com/nfl/player/splits/_/id/2577417/dak-prescott
+    # QB Stats http://www.espn.com/nfl/player/splits/_/id/2577417/year/2016
     # WR Stats http://www.espn.com/nfl/player/splits/_/id/13215/year/2010
   end
 end
