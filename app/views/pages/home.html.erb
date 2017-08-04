@@ -1,5 +1,9 @@
 <h1>Homepage</h1>
-
+<% if current_user %>
+  <%= link_to "Your teams", user_teams_index_path %>
+<% end %>
 <% @teams.find_each do |team| %>
-  <li><%= team.name %></li>
+  <%= link_to roster_path(team) do %>
+    <li><%= team.name %></li>
+  <% end %>
 <% end %>

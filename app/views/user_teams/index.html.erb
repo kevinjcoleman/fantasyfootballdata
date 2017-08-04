@@ -1,0 +1,5 @@
+<h1>UserTeams#index</h1>
+<%= @teams.each do |team| %>
+  <% next if team.class == Array %>
+  <p><%= team.class %>: <%= team %></p>
+<% end %>

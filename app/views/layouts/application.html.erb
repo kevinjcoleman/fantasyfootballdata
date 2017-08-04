@@ -10,5 +10,13 @@
 
   <body>
     <%= yield %>
+
+    <br />
+    <% if current_user %>
+      <p>Hello <%= current_user.name %></p>
+      <%= link_to "Log out?", yahoo_logout_path %>
+    <% else %>
+      <%= link_to 'Sign in with yahoo', '/auth/yahoo' %>
+    <% end %>
   </body>
 </html>

@@ -7,54 +7,6 @@ def open_url(url)
   Nokogiri::HTML(HTTParty.get(url))
 end
 
-doc = open_url('http://www.espn.com/nfl/teams')
-
-roster_urls = doc.xpath('//a[contains(text(), "Roster")]').
-             map {|node| "http://www.espn.com#{node['href']}" }
-
-def obtain_headers(row)
-  headers = []
-  row.children.each_with_index do |td, j|
-    if td.css('a').any?
-      headers[j] = td.css('a').first.content.downcase
-    else
-      headers[j] = td.content.downcase
-    end
-  end
-  headers
-end
-
-def parse_player_row(row, headers)
-  player = {}
-  row.children.each_with_index do |td, j|
-    if td.css('a').any?
-      player[headers[j]] = td.css('a').first.content
-      player['espn_id'] = td.css('a').first['href'].match(/id\/(\d+)\//)[1].to_i
-    else
-      player[headers[j]] = td.content
-    end
-  end
-  player
-end
-
-@players = {}
-
-roster_urls.each do |roster_url|
-  doc = open_url(roster_url)
-  team = doc.css('.sub-brand-title').children.first.content
-  @players[team] = []
-  doc.css('table').children.each_with_index do |row, i|
-    if i == 1 && !@headers
-      @headers = obtain_headers(row)
-    elsif row['class'] == 'stathead'
-      @position = row.content
-    elsif row['class'] != "colhead"
-      @players[team][i] = parse_player_row(row, @headers)
-    end
-  end
-  @players[team] = @players[team].compact
-  break if @players.count > 1
-end
 
 def parse_stats_row(row, headers)
   stats = {}
