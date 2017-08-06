@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :players do
+    get 'seasons', to: 'player_season#index', as: 'seasons'
+  end
+
+
   get 'roster/:team_id', to: 'roster#show', as: 'roster'
 
   get 'user_teams/index'

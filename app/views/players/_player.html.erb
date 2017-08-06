@@ -1,5 +1,9 @@
 <tr>
   <% RosterParser::ROW_HEADERS.values.each do |attr| %>
-    <td><%= player.send(attr) %></td>
+    <% if attr == :name %>
+      <td><%= link_to player.send(attr), player_seasons_path(player) %></td>
+    <% else %>
+      <td><%= player.send(attr) %></td>
+    <% end %>
   <% end %>
 </tr>

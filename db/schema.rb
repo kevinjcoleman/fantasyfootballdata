@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804030759) do
+ActiveRecord::Schema.define(version: 20170805040203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,30 @@ ActiveRecord::Schema.define(version: 20170804030759) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "espn_short_slug"
+  end
+
+  create_table "player_seasons", force: :cascade do |t|
+    t.integer "season"
+    t.integer "passing_completions"
+    t.integer "passing_attempts"
+    t.integer "passing_yards"
+    t.integer "passing_touchdowns"
+    t.integer "passing_interceptions"
+    t.decimal "passing_qbr"
+    t.decimal "passing_rating"
+    t.integer "rushing_attempts"
+    t.integer "rushing_yards"
+    t.integer "rushing_touchdowns"
+    t.integer "receptions"
+    t.integer "receiving_yards"
+    t.integer "receiving_touchdowns"
+    t.integer "fumbles"
+    t.integer "fumbles_lost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "targets"
+    t.bigint "player_id"
+    t.index ["player_id"], name: "index_player_seasons_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -49,4 +73,5 @@ ActiveRecord::Schema.define(version: 20170804030759) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "player_seasons", "players"
 end
