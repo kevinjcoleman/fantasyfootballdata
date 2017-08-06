@@ -23,6 +23,18 @@ class Player < ApplicationRecord
     end
   end
 
+  def stat_columns
+    if position.in?(['WR', "TE", 'RB', "FB"])
+      columns_to_symbols((StatTableParser::RECEIVING_ATTRS.values + StatTableParser::RUSHING_ATTRS.values).uniq)
+    else
+      columns_to_symbols(StatTableParser::PASSING_ATTRS.values.push('fumbles_lost'))
+    end
+  end
+
+  def columns_to_symbols(array)
+    array.map {|v| v.to_sym }
+  end
+
   def stats_url
     "http://www.espn.com/nfl/player/stats/_/id/#{espn_id}/#{espn_slug}"
   end

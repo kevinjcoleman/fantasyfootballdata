@@ -1,5 +1,5 @@
 <tr>
   <% player.stat_columns.each do |attr| %>
-    <td><%= attr.to_s %></td>
+    <td><%= season.send(attr) %></td>
   <% end %>
 </tr>

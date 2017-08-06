@@ -1,8 +1,8 @@
 <h1><%= @player.name %> stats</h1>
 
 <table>
-  <%= render 'header' %>
-  <%= @player.player_seasons.find_each do |season| %>
-    
+  <%= render 'header', player: @player %>
+  <%= @seasons.each do |season| %>
+    <%= render 'season_row', player: @player, season: season %>
   <% end %>
 </table>
