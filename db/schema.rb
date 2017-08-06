@@ -73,5 +73,8 @@ ActiveRecord::Schema.define(version: 20170805040203) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   add_foreign_key "player_seasons", "players"
+=======
+>>>>>>> 735d9576085f3215074d023b2dce369c3cf760f5
 end
