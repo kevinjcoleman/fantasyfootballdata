@@ -41,4 +41,4 @@
 - `docker-compose run ${service} ${command}` - execute a command in a new container of a service
 
 
-Use `lvh.me` locally.
+Use `lvh.me` locally might need to run `ps aux | grep httpd` to see if apache is running and `sudo apachectl stop` to kill it if it is.
