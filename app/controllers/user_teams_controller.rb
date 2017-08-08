@@ -6,6 +6,6 @@ class UserTeamsController < ApplicationController
 
   def show
     @team = Team.includes(:league).find(params[:id])
-    LeagueLoader.new(@team.league)
+    LeagueLoader.new(@team.league, current_user)
   end
 end

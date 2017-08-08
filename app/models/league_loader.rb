@@ -4,4 +4,6 @@ class LeagueLoader
   def initialize(league, user)
     @league, @user = league, user
   end
+
+  
 end
