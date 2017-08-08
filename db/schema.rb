@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805040203) do
+ActiveRecord::Schema.define(version: 20170808061125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "leagues", force: :cascade do |t|
+    t.string "league_key"
+    t.string "name"
+    t.string "url"
+    t.integer "season"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "nfl_teams", force: :cascade do |t|
     t.string "name"
@@ -64,6 +73,19 @@ ActiveRecord::Schema.define(version: 20170805040203) do
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.bigint "league_id"
+    t.string "team_key"
+    t.string "name"
+    t.string "logo_url"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "owner_id"
+    t.index ["league_id"], name: "index_teams_on_league_id"
+    t.index ["owner_id"], name: "index_teams_on_owner_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "refresh_token"
     t.string "token"
@@ -74,4 +96,5 @@ ActiveRecord::Schema.define(version: 20170805040203) do
   end
 
   add_foreign_key "player_seasons", "players"
+  add_foreign_key "teams", "leagues"
 end

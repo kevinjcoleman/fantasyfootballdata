@@ -37,6 +37,10 @@ class YahooApi
     get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/players")
   end
 
+  def league_settings(league_id)
+    get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/settings")
+  end
+
   def leagues
     get("https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games")
   end
@@ -44,6 +48,7 @@ class YahooApi
   def get(url, errors = 0)
     response = HTTParty.get(url,
                   :headers => headers)
+    puts response
     if error_response = response["error"]
       puts error_response
       raise "Too many retries" if errors > 5

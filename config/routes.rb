@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get 'user_teams/index'
 
-  get 'user_teams/show'
+  get 'user_teams/:id', to: 'user_teams#show', as: 'team'
 
   get 'sessions/create'
 

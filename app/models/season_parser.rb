@@ -23,7 +23,6 @@ class SeasonParser
   end
 
   def football?
-    binding.pry
     name == 'Football'
   end
 

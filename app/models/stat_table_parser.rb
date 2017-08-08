@@ -24,9 +24,9 @@ class StatTableParser
   RUSHING_ATTRS = { 0 => 'season',
                     3 => "rushing_attempts",
                     4 => "rushing_yards",
-                    8 => "rushing_touchdowns",
-                    10 => "fumbles",
-                    11 => 'fumbles_lost'
+                    7 => "rushing_touchdowns",
+                    9 => "fumbles",
+                    10 => 'fumbles_lost'
   }
 
   ALL_ATTRS = [PASSING_ATTRS, RECEIVING_ATTRS, RUSHING_ATTRS].map(&:values).flatten.uniq.map {|v| v.to_sym }.freeze

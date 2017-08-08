@@ -1,5 +1,6 @@
-<h1>UserTeams#index</h1>
-<%= @teams.each do |team| %>
-  <% next if team.class == Array %>
-  <p><%= team.class %>: <%= team %></p>
+<h1>Select your team</h1>
+<% @teams.find_each do |team| %>
+  <li>
+    <strong><%= team.league.name %>:</strong> <%= team.name %> <%= link_to 'Dashboard', team_path(team) %>
+  </li>
 <% end %>

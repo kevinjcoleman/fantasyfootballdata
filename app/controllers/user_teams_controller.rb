@@ -1,8 +1,10 @@
 class UserTeamsController < ApplicationController
   def index
-    @teams = current_user.teams['fantasy_content']['users']['user']['teams']['team']
+    current_user.fetch_teams
+    @teams = current_user.teams
   end
 
   def show
+    @team = Team.find(params[:id])
   end
 end

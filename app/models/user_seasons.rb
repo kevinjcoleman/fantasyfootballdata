@@ -4,8 +4,8 @@ class UserSeasons
   def initialize(seasons)
     @seasons = seasons
   end
+  
   def self.parse!(response)
-
     instance = new(ActiveSupport::HashWithIndifferentAccess.
                            new(response).
                            dig :fantasy_content,

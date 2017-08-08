@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  league: one
+  owner: one
+  team_key: MyString
+  name: MyString
+  logo_url: MyString
+  url: MyString
+
+two:
+  league: two
+  owner: two
+  team_key: MyString
+  name: MyString
+  logo_url: MyString
+  url: MyString
