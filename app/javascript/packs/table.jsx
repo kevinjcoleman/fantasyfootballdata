@@ -1,29 +1,62 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from "react-dom";
 import ReactTable from 'react-table';
 import styles from 'react-table/react-table.css';
+import axios from 'axios';
 
-const data = [{
-  name: 'Tanner Linsley',
-  total_points: 432
-},{
-  name: 'Tanner Linsley',
-  total_points: 534
-}]
+class Table extends React.Component {
+  constructor() {
+    super();
+    this.fetchData = this.fetchData.bind(this);
+    this.state = {
+      data: [],
+      loading: true
+    };
+  }
 
-const columns = [{
-    Header: 'Name',
-    accessor: 'name' // String-based value accessors!
-  }, {
-    Header: 'Score',
-    accessor: 'total_points'
-}]
+  componentDidMount(){
+    this.fetchData();
+    setInterval(this.fetchData, 15000);
+  }
 
-ReactDOM.render(
-  <ReactTable
-    data={data}
-    columns={columns}
-    className="-striped -highlight"
-  />,
-document.getElementById('root')
-);
+  fetchData(){
+    axios.get('/leagues/1/players.json')
+      .then(function (response) {
+        console.log(response.data)
+        this.setState({
+          data: response.data.players,
+          loading: false
+        });
+    }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  render() {
+    const { data } = this.state;
+    return (
+      <div>
+        <ReactTable
+          data={data}
+          loading={this.state.loading}
+          columns={[{
+              Header: 'Name',
+              accessor: 'name' // String-based value accessors!
+            }, {
+              Header: 'Position',
+              accessor: 'position'
+            }, {
+              Header: '2016 Score',
+              accessor: 'total_points'
+            }]}
+          defaultPageSize={100}
+          className="-striped -highlight"
+        />
+        <br />
+      </div>
+    );
+  }
+}
+
+render(<Table />, document.getElementById("root"));

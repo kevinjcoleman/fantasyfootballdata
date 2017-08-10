@@ -1,13 +1,4 @@
 <h1>All available players in the league</h1>
-<ul>
-  <% @league_stats.each do |stat| %>
-    <li>
-      <%= stat.player_season.player.name %>: <%= stat.total_points %>
-    </li>
-  <% end %>
-</ul>
-
-
 <div id='root'>
 </div>
 <%= javascript_pack_tag 'table' %>
