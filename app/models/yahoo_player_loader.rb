@@ -15,6 +15,8 @@ class YahooPlayerLoader
     players += results.players
     players += fetch_next_players(results.players.count + count) if results.players.count == 25
     players
+  rescue => e
+    puts "Count: #{count}"
   end
 
   # This class takes the response and creates a yahoo player instance for every record.
@@ -70,6 +72,17 @@ class YahooPlayerLoader
 
     def image
       player.dig('image_url')
+    end
+
+    def number
+      player.dig('uniform_number').to_i
+    end
+
+    TEAMS = {'was' => 'wsh'}
+    def team
+      team = player.dig('editorial_team_abbr').downcase
+      team = TEAMS[team] if team.in?(TEAMS.keys)
+      team
     end
   end
 end
