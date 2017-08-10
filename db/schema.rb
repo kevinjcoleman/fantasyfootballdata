@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170808061125) do
+ActiveRecord::Schema.define(version: 20170809175233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+
+  create_table "league_player_season_stats", force: :cascade do |t|
+    t.bigint "league_id"
+    t.decimal "total_points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "player_season_id"
+    t.index ["league_id"], name: "index_league_player_season_stats_on_league_id"
+    t.index ["player_season_id"], name: "index_league_player_season_stats_on_player_season_id"
+  end
 
   create_table "leagues", force: :cascade do |t|
     t.string "league_key"
@@ -22,6 +33,10 @@ ActiveRecord::Schema.define(version: 20170808061125) do
     t.integer "season"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.hstore "roster_positions"
+    t.hstore "stat_categories"
+    t.index ["roster_positions"], name: "index_leagues_on_roster_positions", using: :gist
+    t.index ["stat_categories"], name: "index_leagues_on_stat_categories", using: :gist
   end
 
   create_table "nfl_teams", force: :cascade do |t|
@@ -34,21 +49,21 @@ ActiveRecord::Schema.define(version: 20170808061125) do
 
   create_table "player_seasons", force: :cascade do |t|
     t.integer "season"
-    t.integer "passing_completions"
-    t.integer "passing_attempts"
-    t.integer "passing_yards"
-    t.integer "passing_touchdowns"
-    t.integer "passing_interceptions"
-    t.decimal "passing_qbr"
-    t.decimal "passing_rating"
-    t.integer "rushing_attempts"
-    t.integer "rushing_yards"
-    t.integer "rushing_touchdowns"
-    t.integer "receptions"
-    t.integer "receiving_yards"
-    t.integer "receiving_touchdowns"
-    t.integer "fumbles"
-    t.integer "fumbles_lost"
+    t.integer "passing_completions", default: 0
+    t.integer "passing_attempts", default: 0
+    t.integer "passing_yards", default: 0
+    t.integer "passing_touchdowns", default: 0
+    t.integer "passing_interceptions", default: 0
+    t.decimal "passing_qbr", default: "0.0"
+    t.decimal "passing_rating", default: "0.0"
+    t.integer "rushing_attempts", default: 0
+    t.integer "rushing_yards", default: 0
+    t.integer "rushing_touchdowns", default: 0
+    t.integer "receptions", default: 0
+    t.integer "receiving_yards", default: 0
+    t.integer "receiving_touchdowns", default: 0
+    t.integer "fumbles", default: 0
+    t.integer "fumbles_lost", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "targets"
@@ -95,6 +110,7 @@ ActiveRecord::Schema.define(version: 20170808061125) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "league_player_season_stats", "leagues"
   add_foreign_key "player_seasons", "players"
   add_foreign_key "teams", "leagues"
 end

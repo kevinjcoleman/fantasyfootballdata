@@ -16,7 +16,8 @@ class Player < ApplicationRecord
     PlayerSeasonStatsParser.parse!(WebDocument.new(stats_url).doc).each do |season, hash|
       PlayerSeason.where(season: season.to_i, player_id: self.id).first_or_create.tap do |stats|
         StatTableParser::ALL_ATTRS.each do |attr|
-          stats.send("#{attr.to_s}=", hash[attr])
+          default = attr.to_s.in?(['passing_qbr', 'passing_rating']) ? 0.0 : 0
+          stats.send("#{attr.to_s}=", (hash[attr] || default))
         end
         stats.save!
       end

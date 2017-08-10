@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  league: one
+  total_points: 9.99
+
+two:
+  player: two
+  league: two
+  total_points: 9.99

@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
+  get 'league_players/index'
+
+  get 'league_players/show'
+
   resources :players do
     get 'seasons', to: 'player_season#index', as: 'seasons'
   end
 
+  resources :leagues, only: [] do
+    resources :players, controller: 'league_players'
+  end
 
   get 'roster/:team_id', to: 'roster#show', as: 'roster'
 

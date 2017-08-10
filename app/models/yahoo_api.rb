@@ -1,9 +1,6 @@
 class YahooApi
-#  GAME_KEY      = Settings.game_key
-#  LEAGUE_NUMBER = Settings.league_number
-#  LEAGUE_KEY    = "#{GAME_KEY}.l.#{LEAGUE_NUMBER}"
-#  BASE_URL      = "http://fantasysports.yahooapis.com/fantasy/v2"
-#  LEAGUE_URL    = "#{BASE_URL}/league/#{LEAGUE_KEY}"
+  # General API info here https://developer.yahoo.com/fantasysports/guide/#game-resource-sub_resources
+  # API endpoint information located here https://developer.yahoo.com/fantasysports/guide/player-resource.html
 
   def initialize(user)
     @user = user
@@ -34,6 +31,7 @@ class YahooApi
   end
 
   def league_players(league_id)
+    # iterate by appending ';start=25'
     get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/players")
   end
 
