@@ -3,8 +3,14 @@ MAINTAINER Kevin Coleman kevinjamescoleman.7@gmail.com
 
 # Install apt based dependencies required to run Rails.
 RUN apt-get update && apt-get install -y \
-  build-essential \
-  nodejs
+  build-essential
+
+# Install node
+RUN wget -qO- https://deb.nodesource.com/setup_7.x | bash -
+RUN apt-get install -y nodejs
+
+# Install yarn
+RUN npm install --global yarn
 
 # Copy the app.
 ENV app /app
@@ -16,8 +22,9 @@ ADD . $app
 # If not, install them.
 ENV BUNDLE_PATH /gems
 RUN bundle check || bundle install
+RUN gem install foreman
 
 # Expose port 3000 to the host so that it is accessible.
 EXPOSE 3000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["foreman start"]
