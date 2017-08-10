@@ -30,9 +30,9 @@ class YahooApi
     get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/teams")
   end
 
-  def league_players(league_id)
+  def league_players(league_id, start)
     # iterate by appending ';start=25'
-    get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/players")
+    get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/players;start=#{start}")
   end
 
   def league_settings(league_id)
