@@ -18,7 +18,8 @@ Hello.propTypes = {
   name: PropTypes.string
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
+  console.log("running!")
   ReactDOM.render(
     <Hello name="React" />,
     document.body.appendChild(document.createElement('div')),

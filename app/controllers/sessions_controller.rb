@@ -10,6 +10,11 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def sign_in_on_dev
+    session[:uid] = User.first.uid
+    redirect_to root_path
+  end
+
   def auth
     request.env['omniauth.auth']
   end

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'sessions/create'
 
+  get 'dev_sign_in', to: 'sessions#sign_in_on_dev', as: 'dev_sign_in'
   root 'pages#home'
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/auth/yahoo/logout' => 'sessions#destroy', :as => :yahoo_logout

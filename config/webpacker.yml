@@ -26,6 +26,7 @@ development:
 
   dev_server:
     host: 0.0.0.0
+    disable_host_check: true
     port: 8080
     https: false
 

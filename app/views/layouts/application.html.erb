@@ -6,17 +6,27 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
     <%= yield %>
-
+    <%= javascript_pack_tag 'hello_react' %>
     <br />
     <% if current_user %>
       <p>Hello <%= current_user.name %></p>
       <%= link_to "Log out?", yahoo_logout_path %>
     <% else %>
+      <%= link_to 'Localhost sign in', dev_sign_in_path if Rails.env.development? %>
       <%= link_to 'Sign in with yahoo', '/auth/yahoo' %>
+    <% end %>
+
+    <%= content_tag :div,
+        id: "hello-react",
+        data: {
+          message: 'Hello!',
+          name: 'Kevin'
+      }.to_json do %>
     <% end %>
   </body>
 </html>
