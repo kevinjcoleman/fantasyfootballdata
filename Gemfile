@@ -34,10 +34,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'nokogiri'
 gem 'pry-rails'
-gem 'httparty'
 gem 'figaro'
 gem 'omniauth-yahoo-oauth2'
 gem 'httparty'
+gem 'webpacker', '~> 2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
