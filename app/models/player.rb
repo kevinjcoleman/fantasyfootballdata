@@ -2,6 +2,9 @@ class Player < ApplicationRecord
   belongs_to :team, class_name: 'NflTeam'
   has_many :player_seasons
 
+  validates :yahoo_key, uniqueness: :true
+  validates :espn_id, uniqueness: :true
+  
   def self.add_from_website(hsh, team)
     where(espn_id: hsh[:espn_id]).first_or_create.tap do |plyr|
       RosterParser::ROW_HEADERS.values.push(:espn_slug).each do |attr|
