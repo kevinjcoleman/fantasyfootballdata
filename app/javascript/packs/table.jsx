@@ -50,7 +50,8 @@ class Table extends React.Component {
               Header: '2016 Score',
               accessor: 'total_points'
             }]}
-          defaultPageSize={100}
+          defaultPageSize={50}
+          defaultSortDesc={true}
           className="-striped -highlight"
         />
         <br />
