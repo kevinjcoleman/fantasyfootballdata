@@ -21,13 +21,13 @@ class PlayerMerger
     raise "Player 1 must not have a yahoo key" if player1.yahoo_key
     begin
       player2.destroy
-      player1.update_attributes(attrs)
+      player1.update_attributes!(attrs)
     rescue => e
       "Player #{player2.id}\nerror: #{e.message}"
     end
   end
 
   def attrs
-    player2.attributes.slice(:image_url, :yahoo_key)
+    player2.attributes.slice('image_url', 'yahoo_key')
   end
 end
