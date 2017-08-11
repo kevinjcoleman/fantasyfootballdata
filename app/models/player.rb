@@ -47,6 +47,10 @@ class Player < ApplicationRecord
     yahoo_key.nil?
   end
 
+  def yahoo_player_info(user=User.first)
+    user.client.player(yahoo_key)
+  end
+
   def stats_url
     "http://www.espn.com/nfl/player/stats/_/id/#{espn_id}/#{espn_slug}"
   end

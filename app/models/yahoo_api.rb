@@ -16,32 +16,36 @@ class YahooApi
   end
 
   def team_matchups(team_id)
-    get("https://fantasysports.yahooapis.com/fantasy/v2/team/#{team_id}/matchups")
+    get("#{BASE}/team/#{team_id}/matchups")
   end
 
   def players(team_id)
-    get("https://fantasysports.yahooapis.com/fantasy/v2/team/#{team_id}/players")
+    get("#{BASE}/team/#{team_id}/players")
   end
 
   def league(league_id)
-    get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}")
+    get("#{BASE}/league/#{league_id}")
   end
 
   def league_teams(league_id)
-    get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/teams")
+    get("#{BASE}/league/#{league_id}/teams")
   end
 
   def league_players(league_id, start)
     # iterate by appending ';start=25'
-    get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/players;start=#{start}")
+    get("#{BASE}/league/#{league_id}/players;start=#{start}")
   end
 
   def league_settings(league_id)
-    get("https://fantasysports.yahooapis.com/fantasy/v2/league/#{league_id}/settings")
+    get("#{BASE}/league/#{league_id}/settings")
   end
 
   def leagues
-    get("https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games")
+    get("#{BASE}/users;use_login=1/games")
+  end
+
+  def player(player_id)
+    get("#{BASE}/player/#{player_id}")
   end
 
   def get(url, errors = 0)

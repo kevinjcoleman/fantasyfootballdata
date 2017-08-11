@@ -20,13 +20,17 @@ class PlayerSeason < ApplicationRecord
   validates :fumbles_lost, numericality: { only_integer: true }
 
   def update_from_yahoo(user=User.first)
-    yahoo_stat_hash(User.first.client.
-                         get("#{YahooApi::BASE}/player/#{player.yahoo_key}/stats;type=season;season=#{season}")).
-                         select {|hsh| hsh['stat_id'].in?(YahooStatId.accepted_ids)}.each do |stat|
-      add_stat(stat)
-    end
-    save!
-    league_stats.find_each(&:update_points!)
+    begin
+      yahoo_stat_hash(User.first.client.
+                           get("#{YahooApi::BASE}/player/#{player.yahoo_key}/stats;type=season;season=#{season}")).
+                           select {|hsh| hsh['stat_id'].in?(YahooStatId.accepted_ids)}.each do |stat|
+        add_stat(stat)
+      end
+      save!
+      league_stats.find_each(&:update_points!)
+    rescue => e
+      puts e.message
+    end 
   end
 
   def yahoo_stat_hash(response)
