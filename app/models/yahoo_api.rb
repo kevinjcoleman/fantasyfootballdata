@@ -2,16 +2,17 @@ class YahooApi
   # General API info here https://developer.yahoo.com/fantasysports/guide/#game-resource-sub_resources
   # API endpoint information located here https://developer.yahoo.com/fantasysports/guide/player-resource.html
 
+  BASE = "https://fantasysports.yahooapis.com/fantasy/v2"
   def initialize(user)
     @user = user
   end
 
   def teams
-    get("https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/leagues/teams")
+    get("#{BASE}/users;use_login=1/games/leagues/teams")
   end
 
   def team(team_id)
-    get("https://fantasysports.yahooapis.com/fantasy/v2/team/#{team_id}")
+    get("#{BASE}/team/#{team_id}")
   end
 
   def team_matchups(team_id)

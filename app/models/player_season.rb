@@ -17,5 +17,24 @@ class PlayerSeason < ApplicationRecord
   validates :receiving_yards, numericality: { only_integer: true }
   validates :receiving_touchdowns, numericality: { only_integer: true }
   validates :fumbles, numericality: { only_integer: true }
-  validates :fumbles_lost, numericality: { only_integer: true } 
+  validates :fumbles_lost, numericality: { only_integer: true }
+
+  def update_from_yahoo(user=User.first)
+    yahoo_stat_hash(User.first.client.
+                         get("#{YahooApi::BASE}/player/#{player.yahoo_key}/stats;type=season;season=#{season}")).
+                         select {|hsh| hsh['stat_id'].in?(YahooStatId.accepted_ids)}.each do |stat|
+      add_stat(stat)
+    end
+    save!
+    league_stats.find_each(&:update_points!)
+  end
+
+  def yahoo_stat_hash(response)
+    response.dig('fantasy_content', 'player', 'player_stats', 'stats', 'stat')
+  end
+
+  def add_stat(stat)
+    attribute = YahooStatId.name_from_stat_id(stat['stat_id'])
+    send("#{attribute.to_s}=", stat['value'].to_s)
+  end
 end
