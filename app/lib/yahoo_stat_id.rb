@@ -81,6 +81,7 @@ module YahooStatId
            #{"stat_id"=>"81", "name"=>"Rushing 1st Downs"},
            #{"stat_id"=>"82", "name"=>"Extra Point Returned"},
            #{"stat_id"=>"83", "name"=>"Extra Point Returned"}]
+           
   def self.name_from_stat_id(stat_id)
     raise 'Unknown stat id' unless stat_id.in?(accepted_ids)
     stat = STATS.find {|hsh| hsh['stat_id'].to_i == stat_id.to_i }

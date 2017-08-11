@@ -2,8 +2,8 @@ class Player < ApplicationRecord
   belongs_to :team, class_name: 'NflTeam'
   has_many :player_seasons
 
-  validates :yahoo_key, uniqueness: :true
-  validates :espn_id, uniqueness: :true, unless: :espn_id_blank?
+  validates :yahoo_key, uniqueness: :true, unless: :yahoo_key_nil?
+  validates :espn_id, uniqueness: :true, unless: :espn_id_nil?
 
   def self.add_from_website(hsh, team)
     where(espn_id: hsh[:espn_id]).first_or_create.tap do |plyr|
@@ -39,8 +39,12 @@ class Player < ApplicationRecord
     array.map {|v| v.to_sym }
   end
 
-  def espn_id_blank?
-    espn_id
+  def espn_id_nil?
+    espn_id.nil?
+  end
+
+  def yahoo_key_nil?
+    yahoo_key.nil?
   end
 
   def stats_url
