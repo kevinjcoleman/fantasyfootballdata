@@ -19,7 +19,7 @@ class LeagueLoader
   end
 
   def need_for_update?
-    league.teams.where("date(updated_at) = ?", Date.today).count == league.teams.count
+    !league.teams.where("date(updated_at) = ?", Date.today).count == league.teams.count || league.teams.count < 1
   end
 
   def add_teams
