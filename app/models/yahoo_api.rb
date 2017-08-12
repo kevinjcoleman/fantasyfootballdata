@@ -23,6 +23,10 @@ class YahooApi
     get("#{BASE}/team/#{team_id}/players")
   end
 
+  def draft_results(team_id)
+    get("#{BASE}/team/#{team_id}/players")
+  end
+
   def league(league_id)
     get("#{BASE}/league/#{league_id}")
   end

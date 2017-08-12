@@ -3,12 +3,14 @@ Rails.application.routes.draw do
 
   get 'league_players/show'
   get 'players/duplicates', to: 'players#duplicates', as: 'duplicates'
+  get 'players/yahoo_duplicates', to: 'players#yahoo_duplicates', as: 'yahoo_duplicates'
+
   get 'players/merge', to: 'players#merge', as: 'merge'
   resources :players do
     get 'seasons', to: 'player_season#index', as: 'seasons'
   end
 
-  resources :leagues, only: [] do
+  resources :leagues, only: [:show] do
     resources :players, controller: 'league_players'
   end
 

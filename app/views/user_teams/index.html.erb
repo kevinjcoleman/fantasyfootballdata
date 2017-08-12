@@ -1,6 +1,6 @@
 <h1>Select your team</h1>
 <% @teams.find_each do |team| %>
   <li>
-    <strong><%= team.league.name %>:</strong> <%= team.name %> <%= link_to 'Dashboard', team_path(team) %>
+    <strong><%= team.league.name %>:</strong> <%= team.name %> <%= link_to 'Dashboard', league_path(team.league) %>
   </li>
 <% end %>

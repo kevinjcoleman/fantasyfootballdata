@@ -1,17 +1,1 @@
-<h1>There are <%= @duplicates.count %> ESPN profiles missing yahoo data.</h1>
-
-<% @duplicates.each do |dupe| %>
-  <p>-------</p>
-  <p>Name: <%= dupe.name %></p>
-  <p>espn_id: <%= dupe.espn_id %></p>
-  <p>position: <%= dupe.position %></p>
-  <p>number: <%= dupe.number %></p>
-  <p>Dupes</p>
-  <% dupe.team.players.where("name LIKE ?", "%#{dupe.name.split(' ').last}%").where.not(id: dupe.id).each do |fd| %>
-    <p>Name: <%= fd.name %></p>
-    <p>yahoo_key: <%= fd.yahoo_key %></p>
-    <p>position: <%= fd.position %></p>
-    <p>number: <%= fd.number %></p>
-    <%= link_to "merge duplicates", merge_path(player1: dupe.id, player2: fd.id) %>
-  <% end %>
-<% end %>
+<%= render 'duplicates', duplicates: @duplicates %>

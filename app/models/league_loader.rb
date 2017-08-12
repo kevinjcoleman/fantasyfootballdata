@@ -5,6 +5,7 @@ class LeagueLoader
     @league, @user = league, user
     @results = fetch_metadata
     league.update_attributes(roster_positions: roster_positions, stat_categories: total_stats)
+    add_teams
     BackfillLeagueStatsJob.new(league: league).run! unless league.league_stats.count == PlayerSeason.count
   end
 
@@ -14,6 +15,21 @@ class LeagueLoader
 
   def settings
     results.dig("fantasy_content", "league", "settings")
+  end
+
+  def add_teams
+    LeagueTeamLoader.new(league, user).teams.each do |team|
+      league.teams.where(team_key: team.team_key).first_or_create.tap do |tm|
+        tm.name = team.name
+        tm.logo_url = team.logo_url
+        tm.url = team.url
+        tm.owner = User.where(uid: team.manager_key).first_or_create.tap do |u|
+          u.name = team.nickname
+          u.save!
+        end
+        tm.save!
+      end
+    end
   end
 
   ROSTER_POSITIONS_KEY = {"QB" => 'quarterbacks',
