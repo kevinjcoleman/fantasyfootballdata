@@ -44,6 +44,9 @@ class Table extends React.Component {
               Header: 'Name',
               accessor: 'name' // String-based value accessors!
             }, {
+              Header: 'Team',
+              accessor: 'team'
+            },{
               Header: 'Position',
               accessor: 'position'
             }, {

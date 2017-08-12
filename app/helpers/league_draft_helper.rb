@@ -1,0 +1,2 @@
+module LeagueDraftHelper
+end

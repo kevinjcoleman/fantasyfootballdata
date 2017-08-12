@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Delayed::Web::Engine, at: '/jobs'
   get 'league_players/index'
 
   get 'league_players/show'
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :leagues, only: [:show] do
+    resources :drafts, controller: 'league_drafts', only: [:destroy, :create]
     resources :players, controller: 'league_players'
   end
 

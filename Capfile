@@ -23,6 +23,7 @@ require 'capistrano/puma'
 install_plugin Capistrano::Puma
 require 'capistrano/puma/nginx'
 require 'capistrano/console'
+require 'capistrano/delayed_job'
 
 
 # Include tasks from other gems included in your Gemfile

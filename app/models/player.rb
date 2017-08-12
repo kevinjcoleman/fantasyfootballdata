@@ -1,6 +1,8 @@
 class Player < ApplicationRecord
   belongs_to :team, class_name: 'NflTeam'
   has_many :player_seasons
+  has_many :team_members
+  has_many :teams, through: :team_members
 
   validates :yahoo_key, uniqueness: :true, unless: :yahoo_key_nil?
   validates :espn_id, uniqueness: :true, unless: :espn_id_nil?

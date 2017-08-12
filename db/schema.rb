@@ -10,11 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810234415) do
+ActiveRecord::Schema.define(version: 20170811075151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "league_drafts", force: :cascade do |t|
+    t.bigint "league_id"
+    t.integer "runs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id"], name: "index_league_drafts_on_league_id"
+  end
 
   create_table "league_player_season_stats", force: :cascade do |t|
     t.bigint "league_id"
@@ -91,6 +114,15 @@ ActiveRecord::Schema.define(version: 20170810234415) do
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
+  create_table "team_members", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_team_members_on_player_id"
+    t.index ["team_id"], name: "index_team_members_on_team_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.bigint "league_id"
     t.string "team_key"
@@ -113,7 +145,10 @@ ActiveRecord::Schema.define(version: 20170810234415) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "league_drafts", "leagues"
   add_foreign_key "league_player_season_stats", "leagues"
   add_foreign_key "player_seasons", "players"
+  add_foreign_key "team_members", "players"
+  add_foreign_key "team_members", "teams"
   add_foreign_key "teams", "leagues"
 end

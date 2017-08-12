@@ -3,8 +3,9 @@ class LeagueLoader
 
   def initialize(league, user)
     @league, @user = league, user
+    return nil unless need_for_update?
     @results = fetch_metadata
-    league.update_attributes(roster_positions: roster_positions, stat_categories: total_stats)
+    league.update_attributes(roster_positions: roster_positions, stat_categories: total_stats) unless roster_positions == league.roster_positions && total_stats == league.stat_categories
     add_teams
     BackfillLeagueStatsJob.new(league: league).run! unless league.league_stats.count == PlayerSeason.count
   end
@@ -15,6 +16,10 @@ class LeagueLoader
 
   def settings
     results.dig("fantasy_content", "league", "settings")
+  end
+
+  def need_for_update?
+    league.teams.where("date(updated_at) = ?", Date.today).count == league.teams.count
   end
 
   def add_teams

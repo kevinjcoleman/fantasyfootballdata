@@ -10,13 +10,15 @@
 </head>
 
   <body>
+    <%= render 'layouts/messages' %>
     <%= yield %>
     <%= javascript_pack_tag 'hello_react' %>
     <br />
     <% if current_user %>
       <p>Hello <%= current_user.name %></p>
-      <%= link_to "Log out?", yahoo_logout_path %>
-      <%= link_to 'Duplicates', duplicates_path if current_user.uid == "CNDVQ2VAAGDYKUPLCVHF65KVOI"%>
+      <p><%= link_to "Log out?", yahoo_logout_path %></p>
+      <p><%= link_to 'Duplicates', duplicates_path if current_user.uid == "CNDVQ2VAAGDYKUPLCVHF65KVOI"%></p>
+      <p><%= link_to 'Jobs dashboard', '/jobs' if current_user.uid == "CNDVQ2VAAGDYKUPLCVHF65KVOI" %></p>
     <% else %>
       <%= link_to 'Localhost sign in', dev_sign_in_path if Rails.env.development? %>
       <%= link_to 'Sign in with yahoo', '/auth/yahoo' %>

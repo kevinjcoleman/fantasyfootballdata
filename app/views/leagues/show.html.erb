@@ -1,6 +1,16 @@
 <h1><%= @league.name %></h1>
 <p><%= link_to 'Available Players', league_players_path(@league) %></p>
-<p><%= link_to 'Start draft', "#" %>  </p>
+
+<div>
+  <% if draft = @league.league_draft %>
+    <h5>Draft sync in progress</h5>
+    <p>Last ran: <%= draft.updated_at %></p>
+    <p>Times ran: <%= draft.runs %></p>
+    <%= link_to 'End draft', league_draft_path(@league, @league.league_draft), method: :delete %>
+  <% else %>
+    <%= link_to 'Start draft', league_drafts_path(@league), method: :post %>
+  <% end %>
+</div>
 
 <h3>Teams</h3>
 <ul>

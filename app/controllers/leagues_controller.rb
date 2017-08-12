@@ -1,6 +1,6 @@
 class LeaguesController < ApplicationController
   def show
-    @league = League.includes(:teams).find(params[:id])
+    @league = League.includes(:teams, :league_draft).find(params[:id])
     load_team
     redirect_to root_path unless @team
     LeagueLoader.new(@league, current_user)
