@@ -38,6 +38,9 @@ gem 'figaro'
 gem 'omniauth-yahoo-oauth2'
 gem 'httparty'
 gem 'webpacker', '~> 2.0'
+gem 'delayed_job_active_record'
+gem "daemons"
+gem 'delayed-web'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -56,6 +59,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'capistrano'
   gem 'capistrano3-puma'
+  gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm'
