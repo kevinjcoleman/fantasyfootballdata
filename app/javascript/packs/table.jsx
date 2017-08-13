@@ -95,6 +95,12 @@ class Table extends React.Component {
             }, {
               Header: '2016 Score',
               accessor: 'total_points'
+            }, {
+              Header: '2016 Position ranking',
+              accessor: 'position_ranking'
+            }, {
+              Header: '2016 Point differential',
+              accessor: 'point_differential'
             }]}
           defaultPageSize={50}
           defaultSortDesc={true}
