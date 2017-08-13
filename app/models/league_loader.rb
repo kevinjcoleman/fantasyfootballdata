@@ -8,7 +8,7 @@ class LeagueLoader
     league.update_attributes(roster_positions: roster_positions, stat_categories: total_stats) unless roster_positions == league.roster_positions && total_stats == league.stat_categories
     add_teams
     BackfillLeagueStatsJob.new(league: league).run! unless league.league_stats.count == PlayerSeason.count
-    AddPositionRanking.new(league: league).run!
+    AddPositionRanking.new(league: league).run! unless league.league_stats.where(position_ranking: nil).count == 0
   end
 
   def fetch_metadata
