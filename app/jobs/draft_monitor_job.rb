@@ -8,7 +8,9 @@ DraftMonitorJob = Struct.new(:league_draft_id) do
     end
     league_draft.league.teams.each do |team|
       player_keys = team.players.pluck(:yahoo_key)
+      puts player_keys
       players = parse_results(User.first.client.draft_results(team.team_key))
+      puts players
       next unless players
       players_keys_to_add = players.map(&:key) - player_keys
       create_players(players_keys_to_add)
@@ -18,7 +20,7 @@ DraftMonitorJob = Struct.new(:league_draft_id) do
   end
 
   def create_players(player_ids)
-    players_keys_to_add.each do |key|
+    player_ids.each do |key|
       player = Player.find_by(yahoo_key: key)
       team.team_members.create(player_id: player.id) if player
     end
