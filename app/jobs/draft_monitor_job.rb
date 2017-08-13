@@ -2,13 +2,16 @@ DraftMonitorJob = Struct.new(:league_draft_id) do
   def perform
     league_draft = LeagueDraft.find_by(id: league_draft_id)
     return nil unless league_draft
+    if league_draft.updated_at > Time.now - 10.seconds
+      Delayed::Job.enqueue DraftMonitorJob.new(league_draft_id)
+      return nil
+    end
     league_draft.league.teams.each do |team|
       player_keys = team.players.pluck(:yahoo_key)
       players = parse_results(User.first.client.draft_results(team.team_key))
       next unless players
       players_keys_to_add = players.map(&:key) - player_keys
       create_players(players_keys_to_add)
-      sleep(2)
     end
     league_draft.runs = (league_draft.runs || 0) + 1; league_draft.save!
     Delayed::Job.enqueue DraftMonitorJob.new(league_draft_id)
