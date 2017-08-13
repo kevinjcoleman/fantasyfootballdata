@@ -9,7 +9,7 @@ class LeagueLoader
       add_teams
     end
     BackfillLeagueStatsJob.new(league: league).run! unless league.league_stats.count == PlayerSeason.count
-    AddPositionRanking.new(league: league).run! unless league.league_stats.where(position_ranking: 0).count == 0
+    AddPositionRanking.new(league).run! unless league.league_stats.where(position_ranking: 0).count == 0
   end
 
   def fetch_metadata
