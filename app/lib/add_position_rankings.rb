@@ -14,7 +14,7 @@ class AddPositionRankings
                'wide_recievers' => 'WR'}
   def run!
     league_position_counts.each do |position, counts|
-      query = LeaguePlayerSeasonStat.joins(player_season: :player).where(players: {position: POSITIONS[position]}).order(total_points: :DESC)
+      query = league.league_stats.joins(player_season: :player).where(players: {position: POSITIONS[position]}, player_seasons: {season: 2016}).order(total_points: :DESC)
       query.each_with_index do |stat, i|
         stat.update_attributes!(position_ranking: i+1)
       end
