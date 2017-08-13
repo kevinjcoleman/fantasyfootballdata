@@ -20,7 +20,7 @@ DraftMonitorJob = Struct.new(:league_draft_id) do
   def create_players(player_ids)
     players_keys_to_add.each do |key|
       player = Player.find_by(yahoo_key: key)
-      team.team_members.create(player_id: player.id)
+      team.team_members.create(player_id: player.id) if player
     end
   end
 

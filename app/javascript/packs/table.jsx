@@ -33,9 +33,7 @@ class Table extends React.Component {
         // filter players in the fetch method
         let filteredPlayers = response.data.players;
         let filterCriteria = this.state.filter_criteria;
-        if (filterCriteria.team){
-          filteredPlayers = response.data.players.filter(player => player.team == filterCriteria.team);
-        };
+        if (filterCriteria.team) {filteredPlayers = this.filterPlayers(filterCriteria, this.state.players);}
         this.setState({
           players: response.data.players,
           filteredPlayers: filteredPlayers,
@@ -48,26 +46,29 @@ class Table extends React.Component {
     });
   }
 
+  filterPlayers(filterCriteria, players) {
+    if (filterCriteria.team) {
+      console.log("filtering by team by:", filterCriteria.team);
+      players = players.filter(player => player.team == filterCriteria.team);
+    }
+    return players;
+  }
+
   logSelectChange(val) {
     if (val) {
-      let filteredPlayers = this.state.players.filter(player => player.team == val.value);
-      console.log(val.value)
-      this.setState({
-        filteredPlayers: filteredPlayers,
-        filter_criteria: {
-          team: val.value,
-        }
-      })
+      console.log(val.value);
+      this.state.filter_criteria.team = val.value
+      this.setState({filter_criteria: {team: val.value}});
+      let filteredPlayers = this.filterPlayers(this.state.filter_criteria, this.state.players);
+      this.setState({filteredPlayers: filteredPlayers});
     } else {
-      this.setState({filter_criteria: {
-                      team: null,
-                    },
+      this.setState({filter_criteria: {team: null,},
                     filteredPlayers: this.state.players})
     }
   }
 
   hasFilterCriteria() {
-    this.state.filteredPlayers != [] && this.state.filter_criteria != {team: null}
+    this.state.filter_criteria.team != null
   }
 
   render() {

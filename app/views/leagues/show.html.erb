@@ -6,9 +6,9 @@
     <h5>Draft sync in progress</h5>
     <p>Last ran: <%= draft.updated_at %></p>
     <p>Times ran: <%= draft.runs %></p>
-    <%= link_to 'End draft', league_draft_path(@league, @league.league_draft), method: :delete %>
+    <%= link_to 'End draft', league_draft_path(@league, @league.league_draft), method: :delete, class: 'btn btn-danger' %>
   <% else %>
-    <%= link_to 'Start draft', league_drafts_path(@league), method: :post %>
+    <%= link_to 'Start draft', league_drafts_path(@league), method: :post, class: 'btn btn-primary' %>
   <% end %>
 </div>
 

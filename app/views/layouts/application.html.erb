@@ -1,25 +1,54 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Fantasyfootballdata</title>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Fantasy football mofo</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-  <body>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<%= root_url %>">Fantasy football mofo</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <% if current_user && current_user.teams.any? %>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Leagues <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <% current_user.teams.each do |team| %>
+                  <li><%= link_to team.league.name, league_path(team.league) %></li>
+                <% end %>
+                <li role="separator" class="divider"></li>
+                <li><%= link_to "View all leagues", user_teams_index_path if current_user %></li>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <div class="container">
     <%= render 'layouts/messages' %>
     <%= yield %>
-    <br />
-    <% if current_user %>
-      <p>Hello <%= current_user.name %></p>
-      <p><%= link_to "Log out?", yahoo_logout_path %></p>
-      <p><%= link_to 'Duplicates', duplicates_path if current_user.uid == "CNDVQ2VAAGDYKUPLCVHF65KVOI"%></p>
-      <p><%= link_to 'Jobs dashboard', '/jobs' if current_user.uid == "CNDVQ2VAAGDYKUPLCVHF65KVOI" %></p>
-    <% else %>
-      <%= link_to 'Localhost sign in', dev_sign_in_path if Rails.env.development? %>
-      <%= link_to 'Sign in with yahoo', '/auth/yahoo' %>
-    <% end %>
-  </body>
+    <hr />
+    <%= render 'layouts/footer' %>
+  </div>
+</body>
 </html>
