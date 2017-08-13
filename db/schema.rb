@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811075151) do
+ActiveRecord::Schema.define(version: 20170811094956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20170811075151) do
     t.integer "targets"
     t.bigint "player_id"
     t.integer "games_played", default: 0
+    t.integer "position_ranking"
+    t.decimal "point_positive"
     t.index ["player_id"], name: "index_player_seasons_on_player_id"
   end
 

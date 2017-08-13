@@ -6,13 +6,11 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application' %>
 </head>
 
   <body>
     <%= render 'layouts/messages' %>
     <%= yield %>
-    <%= javascript_pack_tag 'hello_react' %>
     <br />
     <% if current_user %>
       <p>Hello <%= current_user.name %></p>
