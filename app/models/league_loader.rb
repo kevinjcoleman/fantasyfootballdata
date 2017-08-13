@@ -3,10 +3,11 @@ class LeagueLoader
 
   def initialize(league, user)
     @league, @user = league, user
-    return nil unless need_for_update?
-    @results = fetch_metadata
-    league.update_attributes(roster_positions: roster_positions, stat_categories: total_stats) unless roster_positions == league.roster_positions && total_stats == league.stat_categories
-    add_teams
+    if teams_need_update?
+      @results = fetch_metadata
+      league.update_attributes(roster_positions: roster_positions, stat_categories: total_stats) unless roster_positions == league.roster_positions && total_stats == league.stat_categories
+      add_teams
+    end
     BackfillLeagueStatsJob.new(league: league).run! unless league.league_stats.count == PlayerSeason.count
     AddPositionRanking.new(league: league).run! unless league.league_stats.where(position_ranking: nil).count == 0
   end
@@ -19,8 +20,8 @@ class LeagueLoader
     results.dig("fantasy_content", "league", "settings")
   end
 
-  def need_for_update?
-    !league.teams.where("date(updated_at) = ?", Date.today).count == league.teams.count || league.teams.count < 1
+  def teams_need_update?
+    !league.teams.where("date(updated_at) = ?", Date.today).count == league.teams.count || league.teams.count == 1
   end
 
   def add_teams
