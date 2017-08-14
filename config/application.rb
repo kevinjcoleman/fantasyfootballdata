@@ -15,5 +15,8 @@ module Fantasyfootballdata
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    Raven.configure do |config|
+      config.dsn = 'https://36e71880da914ef0929c2380563f806c:0200e54ce2ee41a395760e79697be129@sentry.io/203494'
+    end
   end
 end
