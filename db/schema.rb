@@ -51,7 +51,8 @@ ActiveRecord::Schema.define(version: 20170811094956) do
     t.index ["player_season_id"], name: "index_league_player_season_stats_on_player_season_id"
   end
 
-  create_table "leagues", force: :cascade do |t|
+  create_table "leagues", id: false, force: :cascade do |t|
+    t.bigserial "id", null: false
     t.string "league_key"
     t.string "name"
     t.string "url"
@@ -94,6 +95,8 @@ ActiveRecord::Schema.define(version: 20170811094956) do
     t.integer "targets"
     t.bigint "player_id"
     t.integer "games_played", default: 0
+    t.integer "position_ranking"
+    t.decimal "point_positive"
     t.index ["player_id"], name: "index_player_seasons_on_player_id"
   end
 
@@ -147,10 +150,7 @@ ActiveRecord::Schema.define(version: 20170811094956) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "league_drafts", "leagues"
-  add_foreign_key "league_player_season_stats", "leagues"
   add_foreign_key "player_seasons", "players"
   add_foreign_key "team_members", "players"
   add_foreign_key "team_members", "teams"
-  add_foreign_key "teams", "leagues"
 end

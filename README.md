@@ -46,5 +46,5 @@ Use `lvh.me` locally might need to run `ps aux | grep httpd` to see if apache is
 
 ### Get working with a local copy of database.
 [Postgres container doc](http://durandom.de/docker/postgres/2016/12/20/pg_dump/)
-`pg_dump -C -h HOST -U USER DB_NAME > production.dump`
-`cat production.dump | docker-compose exec postgres psql -U postgres`
+`pg_dump --format=c -h HOST -U USER DB_NAME > production.dump`
+`docker-compose exec postgres su postgres && pg_restore -v -d fantasyfootballdata_development production.dump`

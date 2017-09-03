@@ -16,6 +16,8 @@ services:
     image: postgres:9.6.1
     ports:
       - "5432"
+    volumes:
+      - ./database_volume:/tmp/database_volume
 
 volumes:
   gems:
