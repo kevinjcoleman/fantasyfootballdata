@@ -12,6 +12,9 @@ RUN apt-get install -y nodejs
 # Install yarn
 RUN npm install --global yarn
 
+# Install NPM libraries
+RUN npm install
+
 # Copy the app.
 ENV app /app
 RUN mkdir -p $app
