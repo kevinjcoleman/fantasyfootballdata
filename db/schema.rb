@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811094956) do
+ActiveRecord::Schema.define(version: 20170916072948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,8 +51,7 @@ ActiveRecord::Schema.define(version: 20170811094956) do
     t.index ["player_season_id"], name: "index_league_player_season_stats_on_player_season_id"
   end
 
-  create_table "leagues", id: false, force: :cascade do |t|
-    t.bigserial "id", null: false
+  create_table "leagues", force: :cascade do |t|
     t.string "league_key"
     t.string "name"
     t.string "url"
@@ -116,6 +115,7 @@ ActiveRecord::Schema.define(version: 20170811094956) do
     t.string "espn_slug"
     t.string "yahoo_key"
     t.string "image_url"
+    t.string "fantasy_pro_slug"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -150,7 +150,39 @@ ActiveRecord::Schema.define(version: 20170811094956) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "weekly_stats", force: :cascade do |t|
+    t.string "matchup"
+    t.text "notes"
+    t.integer "week", default: 0
+    t.integer "best", default: 0
+    t.integer "worst", default: 0
+    t.decimal "average", default: "0.0"
+    t.decimal "std_dev", default: "0.0"
+    t.integer "passing_completions", default: 0
+    t.integer "passing_attempts", default: 0
+    t.integer "passing_yards", default: 0
+    t.integer "passing_touchdowns", default: 0
+    t.integer "passing_interceptions", default: 0
+    t.integer "rushing_attempts", default: 0
+    t.integer "rushing_yards", default: 0
+    t.integer "rushing_touchdowns", default: 0
+    t.integer "receptions", default: 0
+    t.integer "receiving_yards", default: 0
+    t.integer "receiving_touchdowns", default: 0
+    t.integer "fumbles", default: 0
+    t.integer "fumbles_lost", default: 0
+    t.integer "stat_type", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "player_id"
+    t.index ["player_id"], name: "index_weekly_stats_on_player_id"
+  end
+
+  add_foreign_key "league_drafts", "leagues"
+  add_foreign_key "league_player_season_stats", "leagues"
   add_foreign_key "player_seasons", "players"
   add_foreign_key "team_members", "players"
   add_foreign_key "team_members", "teams"
+  add_foreign_key "teams", "leagues"
+  add_foreign_key "weekly_stats", "players"
 end

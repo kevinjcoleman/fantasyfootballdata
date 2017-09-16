@@ -1,6 +1,7 @@
 class Player < ApplicationRecord
   belongs_to :team, class_name: 'NflTeam'
   has_many :player_seasons
+  has_many :weekly_stats
   has_many :team_members
   has_many :teams, through: :team_members
 
