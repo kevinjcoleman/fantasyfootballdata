@@ -1,0 +1,4 @@
+<h1><%= @team.name %>'s roster</h1>
+<% @team.players.each do |player| %>
+  <li><%= player.name %>: <%= player.weekly_stats.first.try(:attributes) %> </li>
+<% end %>

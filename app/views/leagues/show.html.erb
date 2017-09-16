@@ -14,7 +14,7 @@
 
 <h3>Teams</h3>
 <ul>
-  <li>Your team: <%= @team.name %></li>
+  <li>Your team: <%= link_to @team.name, league_team_path(@team) %></li>
   <% @league.teams.includes(:owner).select {|t| t.id != @team.id }.each do |team| %>
     <li><%= team.owner.name %>'s team: <%= team.name %></li>
   <% end %>

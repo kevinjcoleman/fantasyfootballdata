@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :players, controller: 'league_players'
   end
 
+  resources :league_team, controller: 'league_team', only: [:show]
+
   get 'roster/:team_id', to: 'roster#show', as: 'roster'
 
   get 'user_teams/index'
