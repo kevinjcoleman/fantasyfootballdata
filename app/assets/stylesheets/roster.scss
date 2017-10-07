@@ -1,3 +1,34 @@
 // Place all the styles related to the Roster controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.loading-wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h1 {
+    text-align: center;
+  }
+  .flash {
+   animation-name: flash;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+  }
+
+  @keyframes flash {
+    from {color: black;}
+    to {color: transparent;}
+  }
+}
+
+
+.fade-up-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.fade-up-leave-to {
+  transform: translateY(-100px);
+  opacity: 0;
+}
