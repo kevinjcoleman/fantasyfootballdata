@@ -1,4 +1,6 @@
 class SeasonParser
+  # Parse information about a user's specific season.
+
   attr_accessor :season
   def initialize(season)
     @season = season

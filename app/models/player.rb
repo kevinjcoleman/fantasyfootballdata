@@ -57,4 +57,24 @@ class Player < ApplicationRecord
   def stats_url
     "http://www.espn.com/nfl/player/stats/_/id/#{espn_id}/#{espn_slug}"
   end
+
+  def weekly_stat_for_season(season, week)
+    weekly_stats.where(week: week.to_i, stat_type: WeeklyStat::STAT_TYPE_ACTUAL).first_or_create.tap do |weekly_stat|
+      begin
+        stats = User.first.client.weekly_stat(self.yahoo_key, season, week).dig('fantasy_content',
+                     'player',
+                     'player_stats',
+                     'stats',
+                     'stat').
+                     select {|hsh| hsh['stat_id'].in?(YahooStatId.accepted_ids - ["0"])}
+        stats.each do |stat|
+          attribute = YahooStatId.name_from_stat_id(stat['stat_id'])
+          weekly_stat.send("#{attribute.to_s}=", stat['value'].to_s)
+        end
+        weekly_stat.save!
+      rescue => e
+        puts e.message
+      end 
+    end
+  end
 end

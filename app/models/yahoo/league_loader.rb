@@ -1,4 +1,5 @@
 class LeagueLoader
+  # Loads all of the information about a given league and creates the teams for it. 
   attr_accessor :league, :user, :results
 
   def initialize(league, user)

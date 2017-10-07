@@ -23,6 +23,10 @@ class YahooApi
     get("#{BASE}/team/#{team_id}/players")
   end
 
+  def weekly_stat(yahoo_key, season, week)
+    get("#{BASE}/player/#{yahoo_key}/stats;type=week;season=#{season};week=#{week}")
+  end
+
   def draft_results(team_id)
     get("#{BASE}/team/#{team_id}/players")
   end
@@ -55,7 +59,6 @@ class YahooApi
   def get(url, errors = 0)
     response = HTTParty.get(url,
                   :headers => headers)
-    puts response
     if error_response = response["error"]
       puts error_response
       raise "Too many retries" if errors > 5

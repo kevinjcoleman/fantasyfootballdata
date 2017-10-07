@@ -1,5 +1,5 @@
 class StatTableParser
-
+  # Parses out a given players stats.
   PASSING_ATTRS = { 0 => 'season',
                     3 => "passing_completions",
                     4 => "passing_attempts",

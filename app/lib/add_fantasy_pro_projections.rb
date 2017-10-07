@@ -43,7 +43,7 @@ class AddFantasyProProjections
       projection.except(:player_slug, :name, :position).each do |k, v|
         stats.send("#{k}=", v) if v
       end #rescue binding.pry
-      stats.save! rescue binding.pry
+      stats.save!
     end
   end
 

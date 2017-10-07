@@ -1,10 +1,11 @@
 class UserSeasons
+  # LOADS ALL OF THE GIVEN SEASONS FOR A USER 
   attr_accessor :seasons
 
   def initialize(seasons)
     @seasons = seasons
   end
-  
+
   def self.parse!(response)
     instance = new(ActiveSupport::HashWithIndifferentAccess.
                            new(response).

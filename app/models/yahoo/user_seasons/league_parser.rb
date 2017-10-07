@@ -1,4 +1,5 @@
 class LeagueParser
+  # Parse information about a user's specific league.
   attr_accessor :league
   def initialize(league)
     @league = league

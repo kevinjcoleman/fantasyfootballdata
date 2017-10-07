@@ -1,4 +1,5 @@
 class YahooPlayerLoader
+  # Return all of the players for yahoo
   attr_accessor :league, :user, :players
 
   def initialize(user, league)

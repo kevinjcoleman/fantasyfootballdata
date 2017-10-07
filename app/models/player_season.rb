@@ -1,3 +1,5 @@
+require 'yahoo/yahoo_api'
+
 class PlayerSeason < ApplicationRecord
   belongs_to :player
   has_many :league_stats, class_name: 'LeaguePlayerSeasonStat'
@@ -30,7 +32,7 @@ class PlayerSeason < ApplicationRecord
       league_stats.find_each(&:update_points!)
     rescue => e
       puts e.message
-    end 
+    end
   end
 
   def yahoo_stat_hash(response)

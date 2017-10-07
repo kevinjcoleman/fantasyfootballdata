@@ -1,4 +1,6 @@
 class TeamParser
+  # Parse information about a user's specific team.
+
   attr_accessor :team
   def initialize(team)
     @team = team

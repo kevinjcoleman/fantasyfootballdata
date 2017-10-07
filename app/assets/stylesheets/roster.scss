@@ -25,10 +25,21 @@
 }
 
 
-.fade-up-leave-active {
+.fade-up-leave-active, .fade-up-enter-active {
   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
+
 .fade-up-leave-to {
   transform: translateY(-100px);
   opacity: 0;
+}
+
+.fade-up-enter {
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+.fade-up-enter-to {
+  transform: translateY(0px);
+  opacity: 1;
 }

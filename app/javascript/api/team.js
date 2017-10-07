@@ -6,8 +6,8 @@ const _team = {"id": 1, "name": "Rick and MorTDs", "currentWeek": 2, "leagueName
 
 
 export default {
-  getTeam (teamId, cb) {
-    setTimeout(() => cb(_team), 100)
+  getTeam (teamId) {
+    return axios.get("/league_team/" + teamId + '.json');
   },
   getPlayerStats(teamId) {
     return axios.get("/league_team/" + teamId + '/stats.json');

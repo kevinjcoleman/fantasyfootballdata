@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916072948) do
+ActiveRecord::Schema.define(version: 20171007095325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,16 @@ ActiveRecord::Schema.define(version: 20170916072948) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "weekly_stat_totals", force: :cascade do |t|
+    t.bigint "league_id"
+    t.bigint "weekly_stat_id"
+    t.float "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id"], name: "index_weekly_stat_totals_on_league_id"
+    t.index ["weekly_stat_id"], name: "index_weekly_stat_totals_on_weekly_stat_id"
+  end
+
   create_table "weekly_stats", force: :cascade do |t|
     t.string "matchup"
     t.text "notes"
@@ -184,5 +194,7 @@ ActiveRecord::Schema.define(version: 20170916072948) do
   add_foreign_key "team_members", "players"
   add_foreign_key "team_members", "teams"
   add_foreign_key "teams", "leagues"
+  add_foreign_key "weekly_stat_totals", "leagues"
+  add_foreign_key "weekly_stat_totals", "weekly_stats"
   add_foreign_key "weekly_stats", "players"
 end

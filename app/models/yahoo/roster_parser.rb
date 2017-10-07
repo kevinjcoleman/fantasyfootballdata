@@ -1,4 +1,5 @@
 class RosterParser
+  # This pulls players for each roster on espn.
   attr_accessor :roster
   def initialize(roster)
     @roster = roster
