@@ -1,6 +1,8 @@
 # config valid only for current version of Capistrano
 lock "3.9.0"
 
+after 'deploy:published', 'system:update_jobs'
+
 set :application, 'fantasyfootballdata'
 set :repo_url, 'git@github.com:kevinjcoleman/fantasyfootballdata.git'
 
@@ -21,7 +23,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 set :bundle_binstubs, nil
 
 # Default value for keep_releases is 5
-set :keep_releases, 5
+set :keep_releases, 3
 set :rvm_type, :user
 set :rvm_ruby_version, 'ruby-2.4.1'
 
@@ -39,3 +41,16 @@ set :puma_workers, 0
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
+
+namespace :system do
+  desc 'Update the system rules '
+  task :update_jobs do
+    on roles(:app) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'recurring:init'
+        end
+      end
+    end
+  end
+end

@@ -48,3 +48,7 @@ Use `lvh.me` locally might need to run `ps aux | grep httpd` to see if apache is
 [Postgres container doc](http://durandom.de/docker/postgres/2016/12/20/pg_dump/)
 `pg_dump --format=c -h HOST -U USER DB_NAME > production.dump`
 `docker-compose exec postgres su postgres && pg_restore -v -d fantasyfootballdata_development production.dump`
+
+
+### Running rake tasks on production
+`bundle exec rake yahoo:add_weekly_stats RAILS_ENV=production`
