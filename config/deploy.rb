@@ -43,7 +43,7 @@ set :puma_init_active_record, true
 set :puma_preload_app, false
 
 namespace :system do
-  desc 'Update the system rules '
+  desc 'Update the system jobs'
   task :update_jobs do
     on roles(:app) do
       within release_path do
