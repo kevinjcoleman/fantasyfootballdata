@@ -21,17 +21,18 @@
         </tr>
       </tbody>
     </table>
-
+    <weekly-chart />
   </div>
 </template>
 
 <script type="text/javascript">
 import { mapState, mapActions, mapGetters } from 'vuex'
 import _ from 'lodash'
+import WeeklyChart from './WeeklyChart'
 
 export default {
   name: 'Layout',
-
+  components: {WeeklyChart},
   computed: {
     ...mapState(['team']),
     ...mapGetters(['currentWeekPlayerStats', 'statKeys'])
