@@ -54,3 +54,48 @@ namespace :system do
     end
   end
 end
+
+# Clear existing task so we can replace it rather than "add" to it.
+Rake::Task["deploy:compile_assets"].clear
+
+namespace :deploy do
+
+  desc 'Compile assets'
+  task :compile_assets => [:set_rails_env] do
+    # invoke 'deploy:assets:precompile'
+    invoke 'deploy:assets:precompile_local'
+    invoke 'deploy:assets:backup_manifest'
+  end
+
+
+  namespace :assets do
+    desc "Precompile assets locally and then rsync to web servers"
+    task :precompile_local do
+      puts "starting precompile"
+      # compile assets locally
+
+      run_locally do
+        `RAILS_ENV=#{fetch(:stage)} bundle exec rake assets:precompile`
+      end
+      puts "finished precompile"
+
+      # rsync to each server
+      dirs = {
+        './public/assets/' => 'public/assets/',
+        './public/packs/' => 'public/packs/'
+      }
+      on roles( fetch(:assets_roles, [:web]) ) do
+        # this needs to be done outside run_locally in order for host to exist
+        dirs.each do |local, remote|
+          puts "running rsync for #{local}"
+          remote_dir = "#{host.user}@#{host.hostname}:#{release_path}/#{remote}"
+          run_locally { `rsync -av --delete #{local} #{remote_dir}` }
+        end
+      end
+
+      # clean up
+      run_locally { execute "rm -rf #{dirs.keys.first}" }
+    end
+
+  end
+end

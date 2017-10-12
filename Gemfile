@@ -44,6 +44,7 @@ gem "daemons"
 gem 'delayed-web'
 gem 'jquery-rails'
 gem "sentry-raven"
+gem "skylight"
 gem 'delayed_job_recurring'
 gem 'simple_spark'
 
@@ -69,7 +70,6 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm'
-  gem 'capistrano-local-precompile', '~> 1.0.0', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

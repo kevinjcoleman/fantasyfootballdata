@@ -9,6 +9,9 @@ RUN apt-get update && apt-get install -y \
 RUN wget -qO- https://deb.nodesource.com/setup_7.x | bash -
 RUN apt-get install -y nodejs
 
+# Install RSYNC for deployment
+RUN apt-get install -y rsync
+
 # Install yarn
 RUN npm install --global yarn
 
