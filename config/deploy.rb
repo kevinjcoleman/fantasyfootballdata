@@ -42,19 +42,6 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
 
-namespace :system do
-  desc 'Update the system jobs'
-  task :update_jobs do
-    on roles(:app) do
-      within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :rake, 'recurring:init'
-        end
-      end
-    end
-  end
-end
-
 # Clear existing task so we can replace it rather than "add" to it.
 Rake::Task["deploy:compile_assets"].clear
 
