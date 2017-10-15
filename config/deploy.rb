@@ -1,8 +1,6 @@
 # config valid only for current version of Capistrano
 lock "3.9.0"
 
-after 'deploy:published', 'system:update_jobs'
-
 set :application, 'fantasyfootballdata'
 set :repo_url, 'git@github.com:kevinjcoleman/fantasyfootballdata.git'
 

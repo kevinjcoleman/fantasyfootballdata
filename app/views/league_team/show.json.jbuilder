@@ -1,6 +1,6 @@
 json.id @team.id
 json.name @team.name
-json.currentWeek 5
-json.filteredWeek 5
-json.weeks [1, 2, 3, 4, 5]
+json.currentWeek CurrentSeasonInformation.current_week
+json.filteredWeek CurrentSeasonInformation.current_week
+json.weeks 1.upto(CurrentSeasonInformation.current_week).to_a
 json.leagueName @team.league.name

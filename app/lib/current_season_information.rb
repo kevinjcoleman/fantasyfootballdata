@@ -6,10 +6,11 @@ module CurrentSeasonInformation
   end
 
   def self.current_week
+    binding.pry
     if FIRST_MONDAY_GAME > Date.today
       1
     else
-      rounded_up_fraction_of_weeks = ((Date.today - FIRST_MONDAY_GAME).to_i / 7).ceil
+      rounded_up_fraction_of_weeks = ((Date.today - FIRST_MONDAY_GAME).to_f / 7).ceil
       if rounded_up_fraction_of_weeks > 17
         UpdateSender.new(subject: 'TURN OFF JOBS FOR FFMOFO',
                          text: '<p>‼️ ‼️ ‼️ ‼️ ‼️ ‼️</p>',

@@ -1,6 +1,21 @@
 <template>
   <div class="layout-wrap">
     <h1>Team id: {{ team.team.name }}</h1>
+    <div class='row'>
+      <div class="weekly-chart col-md-6">
+        <weekly-chart :datasets="playerStatsForLineChart"
+                      :labels="team.team.weeks"
+                      :isTitle="true"
+                      :title="'Weekly stats by player'">
+        </weekly-chart>
+      </div>
+      <div class="pie-chart col-md-6">
+        <pie-chart :datasets="playerStatsForPieChart"
+                      :isTitle="true"
+                      :title="'Portion of season stats'">
+        </pie-chart>
+      </div>
+    </div>
     <h2>Week {{team.team.filteredWeek}} stats</h2>
     <div class="btn-group" role="group">
       <button v-for="week in team.team.weeks"
@@ -21,7 +36,6 @@
         </tr>
       </tbody>
     </table>
-    <weekly-chart />
   </div>
 </template>
 
@@ -29,13 +43,20 @@
 import { mapState, mapActions, mapGetters } from 'vuex'
 import _ from 'lodash'
 import WeeklyChart from './WeeklyChart'
+import PieChart from './PieChart'
 
 export default {
   name: 'Layout',
-  components: {WeeklyChart},
+  components: {WeeklyChart, PieChart},
   computed: {
     ...mapState(['team']),
-    ...mapGetters(['currentWeekPlayerStats', 'statKeys'])
+    ...mapGetters(['currentWeekPlayerStats',
+                   'statKeys',
+                   'playerStatsForLineChart',
+                   'playerStatsForPieChart']),
+    weeks: function() {
+      return this.team.team.weeks
+    }
   },
   methods: {
     ...mapActions([

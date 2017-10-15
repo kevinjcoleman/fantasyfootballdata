@@ -1,6 +1,7 @@
 import team from '../../api/team'
 import * as types from '../mutation-types'
 import _ from 'lodash'
+import randomColor from 'randomColor'
 
 // initial state
 const state = {
@@ -35,6 +36,35 @@ const getters = {
     return _.filter(_.keys(firstPlayer.stats), (header) => {
       return !_.includes(HEADER_ATTRIBUTES_TO_SKIP, header)
     })
+  },
+  playerStatsForLineChart: state => {
+    return _.map(state.players, (player) => {
+      var playerHash = {}
+      playerHash.label = player.name
+      playerHash.borderColor = randomColor()
+      playerHash.fill = false
+      var actualStats = _.filter(player.stats, {isProjection: false})
+      playerHash.data = _.map(actualStats, (stat) => {
+        return stat.total
+      })
+      return playerHash
+    })
+  },
+  playerStatsForPieChart: state => {
+    var playerStats = _.map(state.players, (player) => {
+      var playerHash = {}
+      playerHash.label = player.name
+      playerHash.color = randomColor()
+      var actualStats = _.map(_.filter(player.stats, {isProjection: false}), (stat) => {
+        return stat.total
+      })
+      playerHash.value = _.sum(actualStats).toFixed(2)
+      return playerHash
+    })
+    console.log(playerStats)
+    return {labels: _.map(playerStats, (stat) => { return stat.label}),
+            backgroundColor: _.map(playerStats, (stat) => { return stat.color}),
+            data: _.map(playerStats, (stat) => { return stat.value})}
   }
 }
 

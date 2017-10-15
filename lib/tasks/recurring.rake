@@ -5,5 +5,6 @@ namespace :recurring do
 
   task yahoo: :environment do
     YahooWeeklyStatsTask.schedule!
+    YahooUpdateTeamsTask.schedule!
   end
 end
