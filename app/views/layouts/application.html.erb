@@ -39,6 +39,14 @@
                 <li><%= link_to "View all leagues", user_teams_index_path if current_user %></li>
               </ul>
             </li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <% current_user.teams.each do |team| %>
+                  <li><%= link_to team.name, league_team_path(team) %></li>
+                <% end %>
+              </ul>
+            </li>
           <% end %>
         </ul>
       </div><!--/.nav-collapse -->
@@ -50,6 +58,5 @@
     <hr />
     <%= render 'layouts/footer' %>
   </div>
-  <h1>environment: <%= Rails.env %></h1>
 </body>
 </html>
