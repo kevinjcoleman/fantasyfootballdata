@@ -6,7 +6,6 @@ module CurrentSeasonInformation
   end
 
   def self.current_week
-    binding.pry
     if FIRST_MONDAY_GAME > Date.today
       1
     else

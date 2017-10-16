@@ -4302,6 +4302,10 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
+raven-js@^3.18.1:
+  version "3.18.1"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.18.1.tgz#746339c08fca75c3f402d7e6b633687c3ffc6ee8"
+
 rc@^1.1.7:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
@@ -5293,6 +5297,10 @@ vue-loading-spinner@^1.0.11:
     node-sass "^4.5.3"
     sass-loader "^6.0.6"
     vue "^2.3.3"
+
+vue-multiselect@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.0.3.tgz#bec58f84586022f82c2a3169be1b869f6d9715fc"
 
 vue-router@^2.7.0:
   version "2.7.0"

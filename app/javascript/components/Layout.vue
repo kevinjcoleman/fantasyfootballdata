@@ -1,6 +1,6 @@
 <template>
   <div class="layout-wrap">
-    <h1>Team id: {{ team.team.name }}</h1>
+    <h1>{{ team.team.name }}</h1>
     <div class='row'>
       <div class="weekly-chart col-md-6">
         <weekly-chart :datasets="playerStatsForLineChart"

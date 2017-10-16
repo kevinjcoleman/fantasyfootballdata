@@ -61,6 +61,7 @@ namespace :deploy do
 
       run_locally do
         `RAILS_ENV=#{fetch(:stage)} bundle exec rake assets:precompile`
+        `RAILS_ENV=#{fetch(:stage)} bundle exec rails webpacker:compile`
       end
       puts "finished precompile"
 
