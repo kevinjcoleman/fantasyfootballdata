@@ -6,7 +6,8 @@ import randomColor from 'randomColor'
 // initial state
 const state = {
   team: {},
-  players: []
+  players: [],
+  currentPositions: []
 }
 
 export const HEADER_ATTRIBUTES_TO_SKIP = ["id", "week", "isProjections"]
@@ -15,8 +16,17 @@ export const HEADER_ATTRIBUTES_TO_SKIP = ["id", "week", "isProjections"]
 const getters = {
   fetchTeam: state => state.team,
   playerStats: state => state.stats,
-  currentWeekPlayerStats: state => {
-    return _.map(state.players, (player) => {
+  currentPlayers: state => {
+    if (state.currentPositions.length > 0) {
+      return _.filter(state.players, (player) => {
+        return _.includes(state.currentPositions, player.position)
+      })
+    } else {
+      return state.players
+    }
+  },
+  currentWeekPlayerStats: (state, getters) => {
+    return _.map(getters.currentPlayers, (player) => {
       var dupePlayer = _.clone(player)
       var actualWeeklyStat = _.find(dupePlayer.stats, {week: state.team.filteredWeek, isProjection: false})
       if (!actualWeeklyStat) {
@@ -37,8 +47,8 @@ const getters = {
       return !_.includes(HEADER_ATTRIBUTES_TO_SKIP, header)
     })
   },
-  playerStatsForLineChart: state => {
-    return _.map(state.players, (player) => {
+  playerStatsForLineChart: (state, getters) => {
+    return _.map(getters.currentPlayers, (player) => {
       var playerHash = {}
       playerHash.label = player.name
       playerHash.borderColor = randomColor()
@@ -50,8 +60,8 @@ const getters = {
       return playerHash
     })
   },
-  playerStatsForPieChart: state => {
-    var playerStats = _.map(state.players, (player) => {
+  playerStatsForPieChart: (state, getters) => {
+    var playerStats = _.map(getters.currentPlayers, (player) => {
       var playerHash = {}
       playerHash.label = player.name
       playerHash.color = randomColor()
@@ -61,7 +71,6 @@ const getters = {
       playerHash.value = _.sum(actualStats).toFixed(2)
       return playerHash
     })
-    console.log(playerStats)
     return {labels: _.map(playerStats, (stat) => { return stat.label}),
             backgroundColor: _.map(playerStats, (stat) => { return stat.color}),
             data: _.map(playerStats, (stat) => { return stat.value})}
@@ -85,6 +94,9 @@ const actions = {
   },
   changeCurrentWeek ({commit}, newWeek ) {
     commit(types.CHANGE_WEEK, {newWeek})
+  },
+  filterForPositions ({commit}, positions) {
+    commit(types.ADD_CURRENT_POSITIONS, {positions})
   }
 }
 
@@ -98,6 +110,9 @@ const mutations = {
   },
   [types.CHANGE_WEEK] (state, { newWeek }) {
     state.team.filteredWeek = newWeek
+  },
+  [types.ADD_CURRENT_POSITIONS] (state, { positions }) {
+    state.currentPositions = positions
   }
 }
 

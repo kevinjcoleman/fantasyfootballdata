@@ -1,7 +1,7 @@
-import { Doughnut } from 'vue-chartjs'
+import { Doughnut, mixins } from 'vue-chartjs'
 
 export default Doughnut.extend({
-  props: ['datasets', 'labels', 'isTitle', 'title'],
+  props: ['datasets', 'isTitle', 'title'],
   mounted () {
     // Overwriting base render method with actual data.
     this.renderChart({
@@ -14,5 +14,19 @@ export default Doughnut.extend({
       text: this.title
       }
     })
+  },
+  watch: {
+    datasets: function(newVal, oldVal) { 
+      this.renderChart({
+        labels: newVal.labels,
+        datasets: [{backgroundColor: newVal.backgroundColor,
+                   data: newVal.data}]
+      },
+      {title: {
+        display: this.isTitle,
+        text: this.title
+        }
+      })
+    }
   }
 })

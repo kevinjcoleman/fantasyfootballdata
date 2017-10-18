@@ -13,5 +13,29 @@ export default Line.extend({
       text: this.title
       }
     })
+  },
+  watch: {
+    datasets: function(newDatasets, oldDatasets) {
+      this.renderChart({
+        labels: this.labels,
+        datasets: newDatasets
+      },
+      {title: {
+        display: this.isTitle,
+        text: this.title
+        }
+      })
+    },
+    labels: function(newLabels, oldlabels) {
+      this.renderChart({
+        labels: newLabels,
+        datasets: this.datasets
+      },
+      {title: {
+        display: this.isTitle,
+        text: this.title
+        }
+      })
+    },
   }
 })
