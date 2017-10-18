@@ -43,6 +43,7 @@ set :puma_preload_app, false
 # Clear existing task so we can replace it rather than "add" to it.
 Rake::Task["deploy:compile_assets"].clear
 
+# Code for rsyncing assets
 namespace :deploy do
 
   desc 'Compile assets'
@@ -51,7 +52,6 @@ namespace :deploy do
     invoke 'deploy:assets:precompile_local'
     invoke 'deploy:assets:backup_manifest'
   end
-
 
   namespace :assets do
     desc "Precompile assets locally and then rsync to web servers"
@@ -83,5 +83,21 @@ namespace :deploy do
       run_locally { execute "rm -rf #{dirs.keys.first}" }
     end
 
+  end
+end
+
+# Reset schedule jobs
+after 'deploy:published', 'jobs:init'
+
+namespace :jobs do
+  desc 'Update the system rules '
+  task :init do
+    on roles(:all) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'recurring:init'
+        end
+      end
+    end
   end
 end

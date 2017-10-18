@@ -1,7 +1,7 @@
 class YahooUpdateTeamsTask
   include Delayed::RecurringJob
   run_every 1.day
-  run_at '1:00 pm'
+  run_at '11:00 pm'
   timezone 'US/Pacific'
   def perform
     UpdateSender.new(subject: 'Starting team update',
