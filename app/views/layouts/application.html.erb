@@ -59,18 +59,17 @@
     <%= render 'layouts/footer' %>
   </div>
 </body>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-56842704-4"></script>
 <script>
   <% if Rails.env.production? %>
     // SETUP Google Analytics
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56842704-4"></script>
-    <script>
+
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'UA-56842704-4');
-    </script>
     // SETUP Full Story
     window['_fs_debug'] = false;
     window['_fs_host'] = 'fullstory.com';
@@ -87,6 +86,7 @@
         d=n.domain;while(1){n.cookie='fs_uid=;domain='+d+
         ';path=/;expires='+new Date(0).toUTCString();i=d.indexOf('.');if(i<0)break;d=d.slice(i+1)}}};
     })(window,document,window['_fs_namespace'],'script','user');
+
     <% if current_user %>
       // SETUP Full Story User Tracking
       FS.identify('<%= current_user.id %>', {
