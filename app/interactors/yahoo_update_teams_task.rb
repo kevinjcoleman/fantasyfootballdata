@@ -8,7 +8,7 @@ class YahooUpdateTeamsTask
                      text: '<p>running</p>',
                      recipients: ['kevinjamescoleman.7@gmail.com']).send!
     League.find_each do |league|
-      league.update_teams!
+      league.update_teams
     end
     UpdateSender.new(subject: 'Finished team update',
                      text: '<p>finished 😄</p>',
