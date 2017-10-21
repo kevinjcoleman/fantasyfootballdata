@@ -25,16 +25,21 @@
     <div class='well'>
       <div class="row">
         <div class="weekly-chart col-md-6">
-          <weekly-chart :datasets="playerStatsForLineChart"
-                        :labels="team.team.weeks"
-                        :isTitle="true"
-                        :title="'Weekly stats by player'">
+          <weekly-chart :chartData="{labels: team.team.weeks,
+                                     datasets: playerStatsForLineChart}"
+                        :options="{title: {
+                                    display: true,
+                                    text: 'Weekly stats by player'}}">
           </weekly-chart>
         </div>
         <div class="pie-chart col-md-6">
-          <pie-chart :datasets="playerStatsForPieChart"
-                        :isTitle="true"
-                        :title="'Portion of season stats'">
+          <pie-chart :chartData="{datasets: [{
+                                    backgroundColor: playerStatsForPieChart.backgroundColor,
+                                    data: playerStatsForPieChart.data}],
+                                  labels: playerStatsForPieChart.labels}"
+                    :options="{title: {
+                                display: true,
+                                text: 'Portion of season stats'}}">
           </pie-chart>
         </div>
       </div>
